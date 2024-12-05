@@ -520,9 +520,9 @@ class ResPartner(models.Model):
                     x[0],
                     x[1],
                     x[2],
-                    "child_ids.%s" % x[0],
-                    "child_ids.%s" % x[1],
-                    "child_ids.%s" % x[2],
+                    f"child_ids.{x[0]}",
+                    f"child_ids.{x[1]}",
+                    f"child_ids.{x[2]}",
                 )
             )
         res.extend(("credit_limit", "child_ids.credit_limit"))
