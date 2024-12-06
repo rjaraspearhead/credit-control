@@ -367,17 +367,17 @@ class ResPartner(models.Model):
         # Partner receivable account determines if amount is in invoice field
         for (
             partner,
-            account,
+            _account,
             currency,  # noqa: B007
             amount_residual,
             amount_residual_currency,  # noqa: B007
         ) in groups["draft"]["read_group"]:
             if partner.id not in self.ids:
                 continue  # pragma: no cover
-            vals["risk_invoice_draft"] += account.company_id.currency_id._convert(
+            vals["risk_invoice_draft"] += currency._convert(
                 amount_residual,
                 self.risk_currency_id,
-                account.company_id,
+                self.env.company,
                 fields.Date.context_today(self),
                 round=False,
             )
@@ -420,16 +420,16 @@ class ResPartner(models.Model):
     def _get_amount_in_risk_currency(
         self, currency, amount_residual_currency, amount_residual, account
     ):
-        acc_currency_id = account.company_id.currency_id.id
+        acc_currency_id = currency.id
         risk_currency_id = self.risk_currency_id.id
         if currency.id == risk_currency_id:
             return amount_residual_currency
         elif acc_currency_id == risk_currency_id:
             return amount_residual
-        return account.company_id.currency_id._convert(
+        return currency._convert(
             amount_residual,
             self.risk_currency_id,
-            account.company_id,
+            self.env.company,
             fields.Date.context_today(self),
             round=False,
         )

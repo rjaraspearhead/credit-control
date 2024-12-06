@@ -54,7 +54,7 @@ class TestPartnerFinancialRisk(TransactionCase):
                 "name": "Partner test",
                 "customer_rank": 1,
                 "property_account_receivable_id": cls.account_customer.id,
-                "company_id": cls.account_customer.company_id.id,
+                "company_id": cls.account_customer.company_ids[0].id,
             }
         )
         cls.invoice_address = cls.env["res.partner"].create(
