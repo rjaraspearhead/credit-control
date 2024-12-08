@@ -26,7 +26,7 @@ class TestRiskSalePayment(AccountPaymentCommon, SaleCommon, PaymentHttpCommon):
         if not cls.pricelist:
             cls.pricelist = cls.env["product.pricelist"].create(
                 {
-                    "name": "Test Pricelist (%s)" % (cls.currency.name),
+                    "name": "Test Pricelist {cls.currency.name}",
                     "currency_id": cls.currency.id,
                 }
             )
